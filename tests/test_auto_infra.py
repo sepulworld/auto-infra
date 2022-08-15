@@ -36,7 +36,8 @@ def test_terraform_command_test_1_format(capfd, caplog):
         result = runner.invoke(
             app,
             [
-                "terraform-format",
+                "terraform",
+                "fmt",
                 "test-auto-infra-app",
                 "--directory",
                 "tests/terraform/test_1",
@@ -54,16 +55,17 @@ def test_terraform_command_test_1_init(capfd, caplog):
         result = runner.invoke(
             app,
             [
-                "terraform-init",
+                "terraform",
+                "init",
                 "test-auto-infra-app",
                 "--directory",
                 "tests/terraform/test_1",
             ],
         )
     assert result.exit_code == 0
-    assert "-backend-config='dynamodb_table=auto-infra-123456789012" in caplog.text
+    assert "-backend-config='dynamodb_table=auto-infra-lock-123456789012-us-east-1" in caplog.text
     assert "terraform -chdir=tests/terraform/test_1 init" in caplog.text
-    assert "-backend-config='bucket=auto-infra-123456789012-us-east-1" in caplog.text
+    assert "-backend-config='bucket=infra-state-123456789012-us-east-1" in caplog.text
     assert "-backend-config='key=dev/test-auto-infra-app" in caplog.text
     assert "-backend-config='region=us-east-1" in caplog.text
 
@@ -76,16 +78,17 @@ def test_terraform_command_test_1_plan(capfd, caplog):
         result = runner.invoke(
             app,
             [
-                "terraform-plan",
+                "terraform",
+                "plan",
                 "test-auto-infra-app",
                 "--directory",
                 "tests/terraform/test_1",
             ],
         )
     assert result.exit_code == 0
-    assert "-backend-config='dynamodb_table=auto-infra-123456789012" in caplog.text
+    assert "-backend-config='dynamodb_table=auto-infra-lock-123456789012-us-east-1" in caplog.text
     assert "terraform -chdir=tests/terraform/test_1 plan" in caplog.text
-    assert "-backend-config='bucket=auto-infra-123456789012-us-east-1" in caplog.text
+    assert "-backend-config='bucket=infra-state-123456789012-us-east-1" in caplog.text
     assert "-backend-config='key=dev/test-auto-infra-app" in caplog.text
     assert "-backend-config='region=us-east-1" in caplog.text
 
@@ -98,16 +101,17 @@ def test_terraform_command_test_1_apply(capfd, caplog):
         result = runner.invoke(
             app,
             [
-                "terraform-apply",
+                "terraform",
+                "apply",
                 "test-auto-infra-app",
                 "--directory",
                 "tests/terraform/test_1",
             ],
         )
     assert result.exit_code == 0
-    assert "-backend-config='dynamodb_table=auto-infra-123456789012" in caplog.text
+    assert "-backend-config='dynamodb_table=auto-infra-lock-123456789012-us-east-1" in caplog.text
     assert "terraform -chdir=tests/terraform/test_1 apply" in caplog.text
-    assert "-backend-config='bucket=auto-infra-123456789012-us-east-1" in caplog.text
+    assert "-backend-config='bucket=infra-state-123456789012-us-east-1" in caplog.text
     assert "-backend-config='key=dev/test-auto-infra-app" in caplog.text
     assert "-backend-config='region=us-east-1" in caplog.text
 
@@ -120,16 +124,17 @@ def test_terraform_command_test_output_command(capfd, caplog):
         result = runner.invoke(
             app,
             [
-                "terraform-output",
+                "terraform",
+                "output",
                 "test-auto-infra-app",
                 "--directory",
                 "tests/terraform/test_1",
             ],
         )
     assert result.exit_code == 0
-    assert "-backend-config='dynamodb_table=auto-infra-123456789012" in caplog.text
+    assert "-backend-config='dynamodb_table=auto-infra-lock-123456789012-us-east-1" in caplog.text
     assert "terraform -chdir=tests/terraform/test_1 output" in caplog.text
-    assert "-backend-config='bucket=auto-infra-123456789012-us-east-1" in caplog.text
+    assert "-backend-config='bucket=infra-state-123456789012-us-east-1" in caplog.text
     assert "-backend-config='key=dev/test-auto-infra-app" in caplog.text
     assert "-backend-config='region=us-east-1" in caplog.text
 
@@ -143,7 +148,8 @@ def test_terraform_command_output_with_output_name(capfd, caplog):
         result = runner.invoke(
             app,
             [
-                "terraform-output",
+                "terraform",
+                "output",
                 "test-auto-infra-app",
                 "--directory",
                 "tests/terraform/test_1",

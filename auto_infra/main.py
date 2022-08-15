@@ -76,6 +76,11 @@ def terraform_init(
         help="The environment to operate within",
         envvar=["ENVIRONMENT"],
     ),
+    s3_bucket: str = typer.Option(
+        default="",
+        help="The S3 bucket to store Terraform state in",
+        envvar=["S3_BUCKET"],
+    ),
     stream_output: bool = typer.Option(
         True,
         help="Flag to stream command output, instead of returning results once process finishes",  # noqa
@@ -91,6 +96,7 @@ def terraform_init(
         environment=environment,
         aws_profile=aws_profile,
         stream_output=stream_output,
+        s3_bucket=s3_bucket,
     )
 
     tf.tf_init()
@@ -128,6 +134,11 @@ def terraform_plan(
         help="The environment to operate within",
         envvar=["ENVIRONMENT"],
     ),
+    s3_bucket: str = typer.Option(
+        default="",
+        help="The S3 bucket to store Terraform state in",
+        envvar=["S3_BUCKET"],
+    ),
     stream_output: bool = typer.Option(
         True,
         help="Flag to stream command output, instead of returning results once process finishes",  # noqa
@@ -151,6 +162,7 @@ def terraform_plan(
         environment=environment,
         stream_output=stream_output,
         tf_refresh=refresh_state,
+        s3_bucket=s3_bucket,
     )
 
     tf.tf_plan()
@@ -189,6 +201,11 @@ def terraform_apply(
         help="Flag to stream command output, instead of returning results once process finishes",  # noqa
         envvar=["STREAM_OUTPUT"],
     ),
+    s3_bucket: str = typer.Option(
+        default="",
+        help="The S3 bucket to store Terraform state in",
+        envvar=["S3_BUCKET"],
+    ),
     refresh_state: str = typer.Option(
         "true",
         help="Update state prior to checking for differences",
@@ -207,6 +224,7 @@ def terraform_apply(
         environment=environment,
         stream_output=stream_output,
         tf_refresh=refresh_state,
+        s3_bucket=s3_bucket,
     )
 
     tf.tf_apply()
@@ -245,6 +263,11 @@ def terraform_output(
         help="Flag to stream command output, instead of returning results once process finishes",  # noqa
         envvar=["STREAM_OUTPUT"],
     ),
+    s3_bucket: str = typer.Option(
+        default="",
+        help="The S3 bucket to store Terraform state in",
+        envvar=["S3_BUCKET"],
+    ),
     refresh_state: str = typer.Option(
         "true",
         help="Update state prior to checking for differences",
@@ -268,30 +291,10 @@ def terraform_output(
         stream_output=stream_output,
         tf_refresh=refresh_state,
         tf_output_name=tf_output_name,
+        s3_bucket=s3_bucket,
     )
 
     tf.tf_output()
-
-
-@terraform.command("ensure-state-bucket-config")
-def terraform_ensure_state_bucket_config(
-    aws_region: str = typer.Option(
-        "us-east-1",
-        help="The AWS region to associate Terraform AWS provider with",
-        envvar=["AWS_REGION"],
-    ),
-    aws_profile: str = typer.Option(
-        "",
-        help="The AWS IAM Profile to use",
-        envvar=["AWS_PROFILE"],
-    ),
-    s3_bucket_name: str = typer.Option(...),
-):
-    """
-    Proscribed and uniform Terraform output
-    """
-    tf = TerraformCommand(aws_region=aws_region, aws_profile=aws_profile)
-    tf.ensure_s3_state_bucket_config(s3_bucket_name)
 
 
 @terraform.command("destroy")
@@ -322,6 +325,11 @@ def terraform_destroy(
         help="Flag to stream command output, instead of returning results once process finishes",  # noqa
         envvar=["STREAM_OUTPUT"],
     ),
+    s3_bucket: str = typer.Option(
+        default="",
+        help="The S3 bucket to store Terraform state in",
+        envvar=["S3_BUCKET"],
+    ),
     environment: str = typer.Option(
         "dev",
         help="The environment to operate within",
@@ -345,6 +353,28 @@ def terraform_destroy(
         environment=environment,
         stream_output=stream_output,
         tf_refresh=refresh_state,
+        s3_bucket=s3_bucket,
     )
 
     tf.tf_destroy()
+
+
+@terraform.command("ensure-state-bucket-config")
+def terraform_ensure_state_bucket_config(
+    aws_region: str = typer.Option(
+        "us-east-1",
+        help="The AWS region to associate Terraform AWS provider with",
+        envvar=["AWS_REGION"],
+    ),
+    aws_profile: str = typer.Option(
+        "",
+        help="The AWS IAM Profile to use",
+        envvar=["AWS_PROFILE"],
+    ),
+    s3_bucket_name: str = typer.Option(...),
+):
+    """
+    Proscribed and uniform Terraform output
+    """
+    tf = TerraformCommand(aws_region=aws_region, aws_profile=aws_profile)
+    tf.ensure_s3_state_bucket_config(s3_bucket_name)
