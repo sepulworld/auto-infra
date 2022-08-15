@@ -65,6 +65,7 @@ $ auto-infra terraform apply [OPTIONS] APPLICATION
 * `--directory TEXT`: The directory to run terraform in  [env var: INFRA_DIR; default: ./]
 * `--environment TEXT`: The environment to operate within  [env var: ENVIRONMENT; default: dev]
 * `--stream-output / --no-stream-output`: Flag to stream command output, instead of returning results once process finishes  [env var: STREAM_OUTPUT; default: True]
+* `--s3-bucket TEXT`: The S3 bucket to store Terraform state in  [env var: S3_BUCKET; default: ]
 * `--refresh-state TEXT`: Update state prior to checking for differences  [env var: TF_STATE_REFRESH; default: true]
 * `--help`: Show this message and exit.
 
@@ -89,6 +90,7 @@ $ auto-infra terraform destroy [OPTIONS] APPLICATION
 * `--auto-init / --no-auto-init`: Automatically init the terraform config and state  [env var: TF_AUTO_INIT; default: True]
 * `--directory TEXT`: The directory to run terraform in  [env var: INFRA_DIR; default: ./]
 * `--stream-output / --no-stream-output`: Flag to stream command output, instead of returning results once process finishes  [env var: STREAM_OUTPUT; default: True]
+* `--s3-bucket TEXT`: The S3 bucket to store Terraform state in  [env var: S3_BUCKET; default: ]
 * `--environment TEXT`: The environment to operate within  [env var: ENVIRONMENT; default: dev]
 * `--refresh-state TEXT`: Update state prior to checking for differences  [env var: TF_STATE_REFRESH; default: true]
 * `--help`: Show this message and exit.
@@ -172,6 +174,7 @@ $ auto-infra terraform init [OPTIONS] APPLICATION
 * `--aws-profile TEXT`: The AWS IAM Profile to use  [env var: AWS_PROFILE; default: ]
 * `--directory TEXT`: The directory to run terraform in  [env var: INFRA_DIR; default: ./]
 * `--environment TEXT`: The environment to operate within  [env var: ENVIRONMENT; default: dev]
+* `--s3-bucket TEXT`: The S3 bucket to store Terraform state in  [env var: S3_BUCKET; default: ]
 * `--stream-output / --no-stream-output`: Flag to stream command output, instead of returning results once process finishes  [default: True]
 * `--help`: Show this message and exit.
 
@@ -197,6 +200,7 @@ $ auto-infra terraform output [OPTIONS] APPLICATION
 * `--directory TEXT`: The directory to run terraform in  [env var: INFRA_DIR; default: ./]
 * `--environment TEXT`: The environment to operate within  [env var: ENVIRONMENT; default: dev]
 * `--stream-output / --no-stream-output`: Flag to stream command output, instead of returning results once process finishes  [env var: STREAM_OUTPUT; default: True]
+* `--s3-bucket TEXT`: The S3 bucket to store Terraform state in  [env var: S3_BUCKET; default: ]
 * `--refresh-state TEXT`: Update state prior to checking for differences  [env var: TF_STATE_REFRESH; default: true]
 * `--tf-output-name TEXT`: If an output NAME is specified, only the value of that output is printed  [default: ]
 * `--help`: Show this message and exit.
@@ -223,6 +227,7 @@ $ auto-infra terraform plan [OPTIONS] APPLICATION
 * `--directory TEXT`: The directory to run terraform in  [env var: INFRA_DIR; default: ./]
 * `--destroy-plan TEXT`: If you want the plan to be a destroy plan, provide a file system path for output  [default: ]
 * `--environment TEXT`: The environment to operate within  [env var: ENVIRONMENT; default: dev]
+* `--s3-bucket TEXT`: The S3 bucket to store Terraform state in  [env var: S3_BUCKET; default: ]
 * `--stream-output / --no-stream-output`: Flag to stream command output, instead of returning results once process finishes  [default: True]
 * `--refresh-state TEXT`: Update state prior to checking for differences  [env var: TF_STATE_REFRESH; default: true]
 * `--help`: Show this message and exit.
