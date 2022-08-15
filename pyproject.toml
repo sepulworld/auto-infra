@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "auto-infra"
+version = "1.0.0"
+description = ""
+authors = ["Zane Williamson <zane.w@hey.com>"]
+readme = "README.md"
+
+include = ["templates/*", "auto_infra/lib/terraform_command.py", "auto_infra/lib/common.py", "auto_infra/lib/setup_logger.py"]
+
+[tool.poetry.scripts]
+auto-infra = "auto_infra.main:app"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+typer = {extras = ["all"], version = "^0.3.2"}
+boto3 = "^1.17.39"
+PyGithub = "^1.54.1"
+awscli = "^1.19.70"
+flake8 = "^3.9.2"
+Jinja2 = "^3.0.3"
+robotframework-kubelibrary = "^0.7.0"
+robotframework-requests = "^0.9.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2"
+pylint = "^2.7.2"
+ipython = "^7.21.0"
+typer-cli = "^0.0.11"
+flake8 = "^3.9.0"
+black = "^21.12b0"
+coverage = "^5.5"
+mccabe = "^0.6.1"
+mypy = "^0.812"
+tox = "^3.23.0"
+moto = "^2.0.8"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
